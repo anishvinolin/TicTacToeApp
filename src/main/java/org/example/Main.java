@@ -1,28 +1,44 @@
+import java.util.Random;
+
 public class TicTacToe {
 
     public static void main(String[] args) {
 
-        // Create a 3x3 board
-        char[][] board = new char[3][3];
+        Random rand = new Random();
 
-        // Initialize the board with '-'
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                board[i][j] = '-';
-            }
+        // Game state variables
+        char humanSymbol;
+        char computerSymbol;
+        boolean isHumanTurn;
+
+        // Toss: 0 or 1
+        int toss = rand.nextInt(2);
+
+        if (toss == 0) {
+            // Human starts
+            isHumanTurn = true;
+            humanSymbol = 'X';
+            computerSymbol = 'O';
+
+            System.out.println("Toss Result: You start first!");
+        } else {
+            // Computer starts
+            isHumanTurn = false;
+            humanSymbol = 'O';
+            computerSymbol = 'X';
+
+            System.out.println("Toss Result: Computer starts first!");
         }
 
-        // Print the board
-        printBoard(board);
-    }
+        // Display assigned symbols
+        System.out.println("Your Symbol: " + humanSymbol);
+        System.out.println("Computer Symbol: " + computerSymbol);
 
-    // Method to print the board
-    public static void printBoard(char[][] board) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println(); // move to next line
+        // Show current turn
+        if (isHumanTurn) {
+            System.out.println("Current Turn: Human");
+        } else {
+            System.out.println("Current Turn: Computer");
         }
     }
 }
