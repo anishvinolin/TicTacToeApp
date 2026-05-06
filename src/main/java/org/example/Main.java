@@ -1,23 +1,46 @@
 import java.util.Random;
 
-import java.util.Random;
+public static void gameLoop() {
 
-public void computerMove(char symbol) {
-    Random rand = new Random();
-    int row, col;
+    boolean gameOver = false;
 
-    while (true) {
-        // Generate random slot (1–9)
-        int slot = rand.nextInt(9) + 1;
+    while (!gameOver) {
 
-        // Convert slot to row & column
-        row = (slot - 1) / 3;
-        col = (slot - 1) % 3;
+        printBoard();
 
-        // Try placing move using UC6 logic
-        if (placeMove(row, col, symbol)) {
-            System.out.println("Computer placed at position: " + slot);
-            break; // exit loop when valid move is placed
+        // Player Turn
+        playerMove();
+        if (checkWin('X')) {
+            printBoard();
+            System.out.println("Player wins!");
+            gameOver = true;
+            break;
+        }
+
+        if (isDraw()) {
+            printBoard();
+            System.out.println("Game is a draw!");
+            break;
+        }
+
+        // Computer Turn
+        computerMove();
+        if (checkWin('O')) {
+            printBoard();
+            System.out.println("Computer wins!");
+            gameOver = true;
+            break;
+        }
+
+        if (isDraw()) {
+            printBoard();
+            System.out.println("Game is a draw!");
+            break;
         }
     }
+}
+
+public static void main(String[] args) {
+    gameLoop();
+}
 }
