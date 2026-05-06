@@ -1,46 +1,23 @@
 import java.util.Random;
 
-class TicTacToe {
-    private char[][] board;
+import java.util.Random;
 
-    // Constructor to initialize board
-    public TicTacToe() {
-        board = new char[3][3];
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                board[i][j] = '-'; // empty cell
-            }
+public void computerMove(char symbol) {
+    Random rand = new Random();
+    int row, col;
+
+    while (true) {
+        // Generate random slot (1–9)
+        int slot = rand.nextInt(9) + 1;
+
+        // Convert slot to row & column
+        row = (slot - 1) / 3;
+        col = (slot - 1) % 3;
+
+        // Try placing move using UC6 logic
+        if (placeMove(row, col, symbol)) {
+            System.out.println("Computer placed at position: " + slot);
+            break; // exit loop when valid move is placed
         }
-    }
-
-    // Display board
-    public void displayBoard() {
-        System.out.println("\nBoard:");
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    // UC6: Place Move on Board
-    public boolean placeMove(int row, int col, char symbol) {
-
-        // Check valid index
-        if(row < 0 || row >= 3 || col < 0 || col >= 3) {
-            System.out.println("Invalid position!");
-            return false;
-        }
-
-        // Check if cell is empty
-        if(board[row][col] != '-') {
-            System.out.println("Cell already occupied!");
-            return false;
-        }
-
-        // Place symbol
-        board[row][col] = symbol;
-        return true;
     }
 }
