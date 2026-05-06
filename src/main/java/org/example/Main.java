@@ -1,47 +1,34 @@
 import java.util.Random;
 
-import java.util.Scanner;
+// Utility class for conversion (Separation of Concerns)
+class SlotConverter {
 
-// Class to handle user input (Separation of Concerns)
-class InputHandler {
+    // Method to convert slot to row & column
+    public int[] convertToIndex(int slot) {
 
-    // Method to get slot input
-    public int getSlotInput() {
-        Scanner scanner = new Scanner(System.in);
-        int slot;
+        // Convert to zero-based index
+        int index = slot - 1;
 
-        while (true) {
-            System.out.print("Enter a slot number (1-9): ");
+        // Calculate row and column
+        int row = index / 3;   // Division
+        int col = index % 3;   // Modulo
 
-            // Check if input is integer
-            if (scanner.hasNextInt()) {
-                slot = scanner.nextInt();
-
-                // Validate range
-                if (slot >= 1 && slot <= 9) {
-                    return slot; // return valid slot
-                } else {
-                    System.out.println("Invalid! Enter number between 1 and 9.");
-                }
-            } else {
-                System.out.println("Invalid input! Please enter a number.");
-                scanner.next(); // clear invalid input
-            }
-        }
+        return new int[]{row, col};
     }
 }
 
-// Main game class
+// Main class
 public class Main {
-
     public static void main(String[] args) {
 
-        InputHandler inputHandler = new InputHandler();
+        SlotConverter converter = new SlotConverter();
 
-        // Control goes to input method and returns back
-        int slot = inputHandler.getSlotInput();
+        int slot = 5; // Example input (can come from UC3)
 
-        // Back to game logic
-        System.out.println("You selected slot: " + slot);
+        int[] position = converter.convertToIndex(slot);
+
+        System.out.println("Slot: " + slot);
+        System.out.println("Row: " + position[0]);
+        System.out.println("Column: " + position[1]);
     }
 }
