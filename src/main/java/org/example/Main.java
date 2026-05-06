@@ -1,34 +1,43 @@
 import java.util.Random;
 
-// Utility class for conversion (Separation of Concerns)
-class SlotConverter {
+public class TicTacToeValidator {
 
-    // Method to convert slot to row & column
-    public int[] convertToIndex(int slot) {
+    // Method to validate the move
+    public static boolean isValidMove(int row, int col, char[][] board) {
 
-        // Convert to zero-based index
-        int index = slot - 1;
+        // Boundary checking
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            System.out.println("Invalid move: Row and column must be between 0 and 2.");
+            return false;
+        }
 
-        // Calculate row and column
-        int row = index / 3;   // Division
-        int col = index % 3;   // Modulo
+        // Check if cell is empty
+        if (board[row][col] != ' ') {
+            System.out.println("Invalid move: Cell is already occupied.");
+            return false;
+        }
 
-        return new int[]{row, col};
+        return true; // Move is valid
     }
-}
 
-// Main class
-public class Main {
+    // Demo usage
     public static void main(String[] args) {
 
-        SlotConverter converter = new SlotConverter();
+        // Initialize empty board
+        char[][] board = {
+                {' ', ' ', ' '},
+                {' ', ' ', ' '},
+                {' ', ' ', ' '}
+        };
 
-        int slot = 5; // Example input (can come from UC3)
+        int row = 1;
+        int col = 1;
 
-        int[] position = converter.convertToIndex(slot);
-
-        System.out.println("Slot: " + slot);
-        System.out.println("Row: " + position[0]);
-        System.out.println("Column: " + position[1]);
+        if (isValidMove(row, col, board)) {
+            board[row][col] = 'X';
+            System.out.println("Move accepted!");
+        } else {
+            System.out.println("Move rejected!");
+        }
     }
 }
